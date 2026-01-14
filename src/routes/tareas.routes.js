@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { prueba, listarTareas, crearTarea, borrarTarea } from "../controllers/tareas.controllers.js";
+import { prueba, listarTareas, crearTarea, borrarTarea, editarTarea } from "../controllers/tareas.controllers.js";
 
 const router = Router();
 
@@ -14,5 +14,10 @@ router.post("/", crearTarea);
 
 // DELETE - borrar tarea por id
 router.delete("/:id", borrarTarea);
+
+// EDITAR - editar tarea por id
+router.put("/:id", editarTarea);
+
+
 
 export default router;

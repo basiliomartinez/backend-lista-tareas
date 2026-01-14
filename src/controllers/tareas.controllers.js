@@ -54,3 +54,30 @@ export const borrarTarea = async (req, res) => {
     res.status(500).json({ mensaje: "Error al eliminar la tarea" });
   }
 };
+
+// PUT - editar tarea
+export const editarTarea = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { tarea } = req.body;
+
+    if (!tarea || tarea.trim().length < 2) {
+      return res.status(400).json({ mensaje: "La tarea es obligatoria" });
+    }
+
+    const tareaEditada = await Tarea.findByIdAndUpdate(
+      id,
+      { tarea: tarea.trim() },
+      { new: true }
+    );
+
+    if (!tareaEditada) {
+      return res.status(404).json({ mensaje: "Tarea no encontrada" });
+    }
+
+    res.status(200).json(tareaEditada);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al editar la tarea" });
+  }
+};
