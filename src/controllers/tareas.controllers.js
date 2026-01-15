@@ -20,12 +20,6 @@ export const prueba = (req, res) => {
 export const crearTarea = async (req, res) => {
   try {
     const { tarea } = req.body;
-
-    // validación simple (sin express-validator)
-    if (!tarea || tarea.trim().length < 2) {
-      return res.status(400).json({ mensaje: "La tarea es obligatoria" });
-    }
-
     const nuevaTarea = new Tarea({ tarea: tarea.trim() });
     await nuevaTarea.save();
 
@@ -60,10 +54,6 @@ export const editarTarea = async (req, res) => {
   try {
     const { id } = req.params;
     const { tarea } = req.body;
-
-    if (!tarea || tarea.trim().length < 2) {
-      return res.status(400).json({ mensaje: "La tarea es obligatoria" });
-    }
 
     const tareaEditada = await Tarea.findByIdAndUpdate(
       id,
